@@ -1,0 +1,20 @@
+name: Matrix wrong audience
+on: { workflow_dispatch: {} }
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  averto:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: averto
+        uses: Averto-dev/averto-action@v1.0.0-rc.1
+        with:
+          api-url: https://stage-platform.averto.dev
+          audience: averto.dev
+          timeout-minutes: "5"
+      - if: always()
+        run: |
+          echo "exit=${{ steps.averto.outputs.averto-exit-code }}"
+          echo "summary=${{ steps.averto.outputs.summary }}"
