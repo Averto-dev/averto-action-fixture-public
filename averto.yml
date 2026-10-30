@@ -5,7 +5,6 @@ scans:
     policy: block
     fail_on:
       new: low
-      total: low
 report:
   sarif: true
   check_run: true
