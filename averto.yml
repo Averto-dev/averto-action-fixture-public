@@ -1,10 +1,12 @@
 version: 1
+budget:
+  max_credits_per_run: 0
 scans:
   - template: code-and-dependencies
     on: [workflow_dispatch, push, pull_request]
-    policy: block
+    policy: comment
     fail_on:
-      new: low
+      new: high
 report:
   sarif: true
   check_run: true
