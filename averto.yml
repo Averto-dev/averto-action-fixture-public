@@ -1,15 +1,10 @@
 version: 1
-
 scans:
   - template: code-and-dependencies
-    on:
-      - push
-      - pull_request
-      - workflow_dispatch
-    policy: comment
+    on: [workflow_dispatch, push, pull_request]
+    policy: block
     fail_on:
-      new: high
-
+      new: low
 report:
   sarif: true
   check_run: true
