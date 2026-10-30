@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: averto
-        uses: Averto-dev/averto-action@v1.0.0-rc.2
+        uses: Averto-dev/averto-action@v1.0.0-rc.3
         with:
           api-url: https://stage-platform.averto.dev
           audience: stage.averto.dev
