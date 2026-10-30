@@ -1,0 +1,31 @@
+name: Averto staging proof
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  averto:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: averto
+        uses: Averto-dev/averto-action@v1.0.0-rc.1
+        with:
+          api-url: https://stage-platform.averto.dev
+          audience: stage.averto.dev
+          timeout-minutes: "30"
+      - name: Summarize Action outputs
+        if: always()
+        run: |
+          echo "run-id=${{ steps.averto.outputs.run-id }}"
+          echo "run-url=${{ steps.averto.outputs.run-url }}"
+          echo "exit=${{ steps.averto.outputs.averto-exit-code }}"
+          echo "summary=${{ steps.averto.outputs.summary }}"
+          echo "sarif-path=${{ steps.averto.outputs.sarif-path }}"

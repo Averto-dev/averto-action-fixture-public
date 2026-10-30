@@ -1,0 +1,26 @@
+name: Averto staging proof (SARIF opt-in)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  id-token: write
+  security-events: write
+
+jobs:
+  averto:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: averto
+        uses: Averto-dev/averto-action@v1.0.0-rc.1
+        with:
+          api-url: https://stage-platform.averto.dev
+          audience: stage.averto.dev
+          timeout-minutes: "30"
+      - if: always() && steps.averto.outputs.sarif-path != ''
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ steps.averto.outputs.sarif-path }}
